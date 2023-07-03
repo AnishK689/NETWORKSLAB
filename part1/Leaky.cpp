@@ -1,56 +1,53 @@
-#include <iostream>
-#include<algorithm>
-
-using namespace std;
-
+#include<stdio.h>
+#include<stdlib.h>
+#define MIN(x,y) (x>y)?y:x
 int main()
 {
-    int input[10]={0},rem=0,sent=0,cap=0,orate=0;
-    cout<<"Enter the bucket size: ";
-    cin>>cap;
-    cout<<"Enter the flowrate: ";
-    cin>>orate;
-    int i=0,choice;
-    do{
-        cout<<"Data entered in second "<<i+1<<": ";
-        cin>>input[i];
-        if(input[i]>cap)
-        {
-            cout<<"Bucket overflow"<<endl;
-            exit(0);
-        }
-        i++;
-        cout<<"Enter 1 for continue 0 for stop: ";
-        cin>>choice;
-    }while(choice);
-    
-    int n = i,drop=0,x=0;
-    cout<<"Len "<<n<<endl;
-    cout<<"\tSecond\t"<<"    Recieved\t"<<"Sent\t"<<"Dropped\t"<<"     Remaining\n";
-    for(int i=0;rem||i<n;i++)
-    {
-        cout<<"\t "<<i+1<<"\t";
-        cout<<"\t"<<input[i]<<"\t";
-        cout<<" "<<min((input[i]+rem),orate)<<"\t";
-        x = input[i]+rem-orate;
-        if(x>0)
-        {
-            if(x>cap)
-            {
-                rem = cap;
-                drop = x-cap;
-            }
-            else{
-                rem = x;
-                drop = 0;
-            }
-        }
-        else
-        {
-            rem = 0;
-            drop = 0;
-        }
-        cout<<"   "<<drop<<"\t";
-        cout<<"\t"<<rem<<"\n";
-    }
+	int orate,drop=0,cap,x,count=0,inp[10]={0},i=0,nsec,ch;
+	printf("\n enter bucket size : ");
+	scanf("%d",&cap);
+	printf("\n enter output rate :");
+	scanf("%d",&orate);
+	do{
+	printf("\n enter number of packets coming at second %d :",i+1);
+	scanf("%d",&inp[i]);
+	if(inp[i]>cap)
+	{
+		printf("Bucket overflow\n");		
+		printf("Packet Discarded\n");
+		exit(0);
+	}
+	i++;
+	printf("\n enter 1 to contiue or 0 to quit..........");
+	scanf("%d",&ch);
+}
+while(ch);
+nsec=i;
+printf("\n Second \t Recieved \t Sent \t Dropped \tRemained \n");
+for(i=0;count || i<nsec;i++)
+{
+	printf("  %d",i+1);
+	printf(" \t\t%d\t ",inp[i]);
+	printf(" \t%d\t ",MIN((inp[i]+count),orate));
+	if((x=inp[i]+count-orate)>0)
+	{
+		if(x>cap)
+		{
+			count=cap;
+			drop=x-cap;
+		}
+		else
+		{
+			count=x;
+			drop=0;
+		}
+	}
+	else
+	{
+		drop=0;
+		count=0;
+	}
+	printf(" \t %d\t %d \n",drop,count);
+}
+return 0;
 }
